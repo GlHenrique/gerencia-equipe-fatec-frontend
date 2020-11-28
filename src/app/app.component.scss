@@ -1,0 +1,19 @@
+mat-drawer-container {
+    height: 100%;
+}
+
+mat-drawer {
+    min-width: 300px;
+}
+
+mat-list-item:hover {
+    cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+    padding: 64px;
+}
