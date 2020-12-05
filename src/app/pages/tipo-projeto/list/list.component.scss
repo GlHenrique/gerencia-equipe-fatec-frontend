@@ -6,8 +6,22 @@ th.mat-sort-header-sorted {
   color: black;
 }
 
+tr {
+  button {
+    display: none;
+  }
+}
+
 tr:hover {
   background: whitesmoke;
+
+  button {
+    display: inline-table;
+  }
+}
+
+.cell-align-right {
+  text-align: right;
 }
 
 .fab-container {
@@ -15,3 +29,6 @@ tr:hover {
   bottom: 24px;
   right: 24px;
 }
+
+
+

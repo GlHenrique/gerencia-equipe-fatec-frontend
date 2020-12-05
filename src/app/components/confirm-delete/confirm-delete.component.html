@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Confirmar exclusão</h1>
+<div mat-dialog-content>
+  <mat-card-content>
+    <p>
+      Você realmente deseja excluir {{data.nome}}?
+    </p>
+  </mat-card-content>
+</div>
+<mat-card-actions align="end">
+  <button [matDialogClose]="true" mat-button color="accent">Sim</button>
+  <button [matDialogClose]="false" mat-button color="warn">Não</button>
+</mat-card-actions>

@@ -2,6 +2,9 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { TipoProjetoService } from '../tipo-projeto.service';
+import { ConfirmDeleteComponent } from '../../../components/confirm-delete/confirm-delete.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface TipoProjeto {
   nome: string;
@@ -16,12 +19,17 @@ export interface TipoProjeto {
 export class ListComponent implements AfterViewInit, OnInit {
 
 
-  displayedColumns: string[] = ['id', 'nome'];
+  dialogRef: any;
+  displayedColumns: string[] = ['id', 'nome', 'excluir'];
   dataSource = new MatTableDataSource([]);
   loading: boolean;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private tipoProjetoService: TipoProjetoService) {
+  constructor(
+    private tipoProjetoService: TipoProjetoService,
+    public dialog: MatDialog,
+    private snackbarService: MatSnackBar
+  ) {
     this.loading = false;
   }
 
@@ -42,6 +50,32 @@ export class ListComponent implements AfterViewInit, OnInit {
         this.loading = false;
       }, 1000);
     });
+  }
+
+  openDialog(tipoProjeto: any) {
+    this.dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      data: {
+        nome: tipoProjeto.nome,
+      }
+    });
+    this.dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.tipoProjetoService.deleteTipoProjeto(tipoProjeto._id).then(
+          () => {
+            this.snackbarService.open('Excluído com sucesso!', 'OK', {
+              horizontalPosition: 'center',
+              duration: 4000,
+            });
+            this.listar();
+          }
+        );
+      }
+    });
+  }
+
+  excluir(event: Event, tipoProjeto: any) {
+    event.stopPropagation();
+    this.openDialog(tipoProjeto);
   }
 
 

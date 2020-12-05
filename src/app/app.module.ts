@@ -11,6 +11,9 @@ import { ListComponent as TipoProjetoList } from './pages/tipo-projeto/list/list
 import { FormComponent as TipoProjetoForm } from './pages/tipo-projeto/form/form.component';
 import { ListComponent as StatusProjetoList } from './pages/status-projeto/list/list.component';
 import { FormComponent as StatusProjetoForm } from './pages/status-projeto/form/form.component';
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
+import { ListComponent } from './pages/cargo/list/list.component';
+import { FormComponent } from './pages/cargo/form/form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { FormComponent as StatusProjetoForm } from './pages/status-projeto/form/
     TipoProjetoList,
     TipoProjetoForm,
     StatusProjetoList,
-    StatusProjetoForm
+    StatusProjetoForm,
+    ConfirmDeleteComponent,
+    ListComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,

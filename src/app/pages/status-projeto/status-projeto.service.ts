@@ -28,4 +28,8 @@ export class StatusProjetoService {
       nome,
     }).toPromise();
   }
+
+  deleteTipoProjeto(id: string) {
+    return this.httpCliente.request('DELETE', `${environment.baseUrl}/status-projeto`, {body: {id}}).toPromise();
+  }
 }

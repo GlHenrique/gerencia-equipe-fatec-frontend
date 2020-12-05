@@ -19,6 +19,18 @@
           <div mat-line>Status projeto</div>
         </mat-list-item>
       </a>
+      <a matRipple (click)="closeDrawer(drawer)" [routerLink]="['/cargo']">
+        <mat-list-item>
+          <mat-icon color="warn" mat-list-icon>support_agent</mat-icon>
+          <div mat-line>Cargo</div>
+        </mat-list-item>
+      </a>
+      <a matRipple (click)="closeDrawer(drawer)" [routerLink]="['/funcionario']">
+        <mat-list-item>
+          <mat-icon color="warn" mat-list-icon>people_alt</mat-icon>
+          <div mat-line>Funcionário</div>
+        </mat-list-item>
+      </a>
       <mat-divider></mat-divider>
     </mat-list>
   </mat-drawer>

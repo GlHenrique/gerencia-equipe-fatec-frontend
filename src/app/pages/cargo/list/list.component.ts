@@ -1,22 +1,19 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { StatusProjetoService } from '../status-projeto.service';
-import { ConfirmDeleteComponent } from '../../../components/confirm-delete/confirm-delete.component';
+import { StatusProjetoService } from '../../status-projeto/status-projeto.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface StatusProjeto {
-  nome: string;
-  id: string;
-}
+import { ConfirmDeleteComponent } from '../../../components/confirm-delete/confirm-delete.component';
+import { StatusProjeto } from '../../status-projeto/list/list.component';
+import { CargoService } from '../cargo.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements AfterViewInit, OnInit {
+export class ListComponent implements OnInit {
 
   dialogRef;
   displayedColumns: string[] = ['id', 'nome', 'excluir'];
@@ -25,7 +22,7 @@ export class ListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private statusProjetoService: StatusProjetoService,
+    private cargoService: CargoService,
     public dialog: MatDialog,
     private snackbarService: MatSnackBar
   ) {
@@ -36,14 +33,9 @@ export class ListComponent implements AfterViewInit, OnInit {
     this.listar();
   }
 
-  // tslint:disable-next-line:typedef
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-
   async listar() {
     this.loading = true;
-    await this.statusProjetoService.getStatusProjeto().then((res: StatusProjeto[]) => {
+    await this.cargoService.getCargo().then((res: StatusProjeto[]) => {
       setTimeout(() => {
         this.dataSource.data = res;
         this.loading = false;
@@ -59,7 +51,7 @@ export class ListComponent implements AfterViewInit, OnInit {
     });
     this.dialogRef.afterClosed().subscribe((res) => {
       if (res) {
-        this.statusProjetoService.deleteTipoProjeto(statusProjeto._id).then(
+        this.cargoService.deleteCargo(statusProjeto._id).then(
           () => {
             this.snackbarService.open('Excluído com sucesso!', 'OK', {
               horizontalPosition: 'center',
@@ -76,6 +68,4 @@ export class ListComponent implements AfterViewInit, OnInit {
     event.stopPropagation();
     this.openDialog(tipoProjeto);
   }
-
-
 }
