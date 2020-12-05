@@ -1,1 +1,65 @@
-<p>form works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <button (click)="back()" mat-icon-button>
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      Gerência de funcionários
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{idFuncionario ? 'Atualizar funcionário ' + info.nome: 'Cadastrar novo funcionário' }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <form #form (ngSubmit)="submit($event, form)">
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input name="nome" [(ngModel)]="info.nome" required matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>CPF</mat-label>
+        <input name="CPF" [(ngModel)]="info.cpf" required matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Data Nascimento</mat-label>
+        <input
+          name="Data Nascimento"
+          [(ngModel)]="info.data_nascimento"
+          matInput
+          required
+          [matDatepicker]="DataNascimento">
+        <mat-datepicker-toggle matSuffix [for]="DataNascimento"></mat-datepicker-toggle>
+        <mat-datepicker #DataNascimento></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Salário</mat-label>
+        <input name="Salário" [(ngModel)]="info.salario" required matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cargo</mat-label>
+        <mat-select required [(ngModel)]="info.cargo" name="Cargo" (ngModelChange)="changeCargo()">
+          <mat-option *ngFor="let cargo of cargos" [value]="cargo._id">
+            {{cargo.nome}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" *ngIf="info.cargo !== cargoSupervisor">
+        <mat-label>Supervisor</mat-label>
+        <mat-select
+          [(ngModel)]="info.supervisor"
+          name="Supervisor"
+          [required]="info.cargo !== cargoSupervisor"
+        >
+          <mat-option
+            *ngFor="let supervisor of supervisores"
+            [value]="supervisor._id">
+            {{supervisor.nome}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions  align="end">
+      <button color="accent" type="submit" mat-button>SALVAR</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
