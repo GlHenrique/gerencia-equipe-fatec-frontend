@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from '../funcionario.service';
 import { CargoService } from '../../cargo/cargo.service';
-import { FormGroup } from '@angular/forms';
+import { Form, FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -17,6 +17,7 @@ export class FormComponent implements OnInit {
   cargos: any;
   supervisores: any[];
   cargoSupervisor: string;
+  hoje: Date;
   constructor(
     private funcionarioService: FuncionarioService,
     private cargoService: CargoService,
@@ -27,6 +28,7 @@ export class FormComponent implements OnInit {
     this.info = {};
     this.cargoSupervisor = '';
     this.supervisores = [];
+    this.hoje = new Date();
     this.idFuncionario = this.route.snapshot.params.id;
   }
 
@@ -73,8 +75,11 @@ export class FormComponent implements OnInit {
     console.log(this.info)
   }
 
-  submit(e: Event, form: FormGroup) {
+  submit(e: Event, form: NgForm) {
     e.preventDefault();
+    if (form.invalid) {
+      return;
+    }
     if (!this.info) {
       return;
     }

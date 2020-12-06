@@ -8,6 +8,8 @@ import { ListComponent as CargoList } from './pages/cargo/list/list.component';
 import { FormComponent as CargoForm } from './pages/cargo/form/form.component';
 import { ListComponent as FuncionarioList } from './pages/funcionario/list/list.component';
 import { FormComponent as FuncionarioForm } from './pages/funcionario/form/form.component';
+import { ListComponent as ProjetoList } from './pages/projeto/list/list.component';
+import { FormComponent as ProjetoForm } from './pages/projeto/form/form.component';
 
 const routes: Routes = [
   { path: 'tipo-projeto', component: TipoProjetoList, data: {title: 'Tipo projeto'} },
@@ -22,6 +24,9 @@ const routes: Routes = [
   { path: 'funcionario', component: FuncionarioList, data: {title: 'Funcionário'} },
   { path: 'funcionario/novo', component: FuncionarioForm, data: {title: 'Funcionário'} },
   { path: 'funcionario/:id', component: FuncionarioForm, data: {title: 'Funcionário'} },
+  { path: 'projeto', component: ProjetoList, data: {title: 'Projeto'} },
+  { path: 'projeto/novo', component: ProjetoForm, data: {title: 'Projeto'} },
+  { path: 'projeto/:id', component: ProjetoForm, data: {title: 'Projeto'} },
 ];
 
 @NgModule({

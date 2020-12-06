@@ -5,6 +5,8 @@ import { LOCALE_ID } from '@angular/core';
 
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt, 'pt-BR');
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +22,8 @@ import { ListComponent as CargoList } from './pages/cargo/list/list.component';
 import { FormComponent as CargoForm } from './pages/cargo/form/form.component';
 import { ListComponent as FuncionarioList } from './pages/funcionario/list/list.component';
 import { FormComponent as FuncionarioForm } from './pages/funcionario/form/form.component';
+import { ListComponent as ProjetoList } from './pages/projeto/list/list.component';
+import { FormComponent as ProjetoForm } from './pages/projeto/form/form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,9 @@ import { FormComponent as FuncionarioForm } from './pages/funcionario/form/form.
     CargoList,
     CargoForm,
     FuncionarioList,
-    FuncionarioForm
+    FuncionarioForm,
+    ProjetoList,
+    ProjetoForm
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,8 @@ import { FormComponent as FuncionarioForm } from './pages/funcionario/form/form.
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxMaskModule.forRoot(options),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' }

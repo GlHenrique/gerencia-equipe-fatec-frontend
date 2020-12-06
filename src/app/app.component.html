@@ -31,6 +31,12 @@
           <div mat-line>Funcionário</div>
         </mat-list-item>
       </a>
+      <a matRipple (click)="closeDrawer(drawer)" [routerLink]="['/projeto']">
+        <mat-list-item>
+          <mat-icon color="warn" mat-list-icon>work</mat-icon>
+          <div mat-line>Projeto</div>
+        </mat-list-item>
+      </a>
       <mat-divider></mat-divider>
     </mat-list>
   </mat-drawer>

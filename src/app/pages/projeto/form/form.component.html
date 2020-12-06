@@ -1,0 +1,89 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <button (click)="back()" mat-icon-button>
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      Gerência de Projetos
+    </mat-card-title>
+    <button class="status" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button
+        *ngFor="let statusProjeto of statusProjetos"
+        mat-menu-item
+        (click)="setStatusProjeto(statusProjeto)">
+        <mat-icon *ngIf="statusProjeto._id === info.status">done</mat-icon>
+        <mat-icon *ngIf="statusProjeto._id !== info.status">indeterminate_check_box</mat-icon>
+        <span>{{statusProjeto.nome}}</span>
+      </button>
+    </mat-menu>
+    <mat-card-subtitle>
+      {{idProjeto ? 'Atualizar projeto ' + info.nome: 'Cadastrar novo projeto' }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <form #form="ngForm" (ngSubmit)="submit($event, form)">
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input name="nome" [(ngModel)]="info.nome" required matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Data Início</mat-label>
+        <input
+          name="Data Início"
+          [(ngModel)]="info.data_inicio"
+          matInput
+          required
+          [max]="hoje"
+          [matDatepicker]="DataInicio">
+        <mat-datepicker-toggle matSuffix [for]="DataInicio"></mat-datepicker-toggle>
+        <mat-datepicker #DataInicio></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Data Fim</mat-label>
+        <input
+          name="Data Fim"
+          [(ngModel)]="info.data_fim"
+          matInput
+          required
+          [min]="hoje"
+          [matDatepicker]="DataFim">
+        <mat-datepicker-toggle matSuffix [for]="DataFim"></mat-datepicker-toggle>
+        <mat-datepicker #DataFim></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Integrantes</mat-label>
+        <mat-select required multiple name="Integrantes" [(ngModel)]="info.integrantes">
+          <mat-option *ngFor="let integrante of integrantes" [value]="integrante._id">{{integrante.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Líder</mat-label>
+        <mat-select required name="Líder" [(ngModel)]="info.lider">
+          <mat-option *ngFor="let lider of lideres" [value]="lider._id">{{lider.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Supervisor</mat-label>
+        <mat-select required name="Supervisor" [(ngModel)]="info.supervisor">
+          <mat-option *ngFor="let supervisor of supervisores" [value]="supervisor._id">{{supervisor.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de Projeto</mat-label>
+        <mat-select required name="Tipo Projeto" [(ngModel)]="info.tipo">
+          <mat-option *ngFor="let tipoProjeto of tiposProjetos" [value]="tipoProjeto._id">{{tipoProjeto.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Descrição</mat-label>
+        <textarea name="Descrição" [(ngModel)]="info.descricao" required [rows]="3" matInput placeholder="Ex. Este projeto tem por objetivo..."></textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions  align="end">
+      <button color="accent" type="submit" mat-button>SALVAR</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
