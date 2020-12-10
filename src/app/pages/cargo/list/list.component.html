@@ -15,15 +15,21 @@
 
   <ng-container matColumnDef="excluir">
     <th  mat-header-cell class="cell-align-right" *matHeaderCellDef>Excluir</th>
-    <td mat-cell class="cell-align-right" *matCellDef="let element">
-      <button mat-icon-button color="warn" title="Excluir" (click)="excluir($event, element)">
+    <td mat-cell class="cell-align-right" *matCellDef="let element" [disabled]="true">
+      <button 
+        [disabled]="element.permanent"
+          mat-icon-button color="warn" 
+          (click)="excluir($event, element)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr [routerLink]="['/cargo', row._id]" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr  #tooltip="matTooltip"
+  matTooltip="Cargos permanentes não podem ser editados ou excluídos!"
+  matTooltipPosition="below"
+  [matTooltipDisabled]="!row.permanent" [routerLink]="row.permanent ? null : ['/cargo', row._id]" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
 <div class="fab-container">
